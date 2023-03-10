@@ -7,7 +7,7 @@ pipeline{
             label "java-build-server"
         }
     }
-  //  tools {NodeJS 'nodejs-16'}
+     tools {NodeJS 'nodejs-16.6.0'}
 
     stages {
         stage('build') {
