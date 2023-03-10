@@ -1,10 +1,10 @@
 def registry = 'https://jsinghg.jfrog.io'
-def imageName = 'jsinghg.jfrog.io/demo-nodejs/demo-nodejs'
+def imageName = 'jsinghg.jfrog.io/demo-nodejs-local/demo-nodejs'
 def version   = '1.0.2'
 pipeline{
     agent {
         node {
-            label "valaxy"
+            label "java-build-server"
         }
     }
     tools {nodejs 'nodejs-16'}
@@ -40,19 +40,19 @@ stage(" Docker Build ") {
         steps {
             script {
                echo '<--------------- Docker Publish Started --------------->'  
-                docker.withRegistry(registry, 'jfrog-access'){
+                docker.withRegistry(registry, 'jenkins-jfrog-token'){
                     app.push()
                 }    
                echo '<--------------- Docker Publish Ended --------------->'  
             }
         }
     }
-            stage('Deployment') {
-            steps {
-                echo '<--------------- deployment started  --------------->'
-                sh './deploy.sh'
-                echo '<------------- deployment stopped  --------------->'
-            }
-        }  
+ //           stage('Deployment') {
+//          steps {
+//                echo '<--------------- deployment started  --------------->'
+//                sh './deploy.sh'
+//                echo '<------------- deployment stopped  --------------->'
+//            }
+//        }  
     }
     }
